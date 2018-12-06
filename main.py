@@ -105,18 +105,20 @@ def loadFile(path):
 
             else: # continue until a doc markup
                 line = file.readline().rstrip()
+            
+    return documents
 
 
 def indexCorpus(folder):
-    documents = []
+    corpus = []
     
     for file in os.listdir(folder):
-        print(f"{folder}/{file}")
-        documents += loadFile(f"{folder}{file}")
+        corpus += loadFile(f"{folder}/{file}")
 
-    return documents
-"""
-documents = indexCorpus("corpus/")
-print(len(documents))
-"""
-print(os.listdir("corpus"))
+    return corpus
+
+corpus = indexCorpus("corpus")
+print(len(corpus))
+for doc in corpus:
+    print(doc.docno)
+    
