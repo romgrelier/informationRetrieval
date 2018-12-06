@@ -54,16 +54,16 @@ def buildInvertedIndex(corpus):
     index = 0
 
     for document in corpus:
-        wordsPerDocument = document.countWords()
 
-        for word in document.text.split(" "):
+        for word, count in document.countWords().items():
             
             if word in words:
-                words[word].append((index, wordsPerDocument[word]))
+                words[word][0] += 1
+                words[word].append((index, count))
 
             else:
-                words[word] = []
-                words[word].append((index, wordsPerDocument[word]))
+                words[word] = [1]
+                words[word].append((index, count))
         
         index += 1
 
