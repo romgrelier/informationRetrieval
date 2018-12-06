@@ -1,7 +1,11 @@
-from parser import indexCorpus
+from fileLoader import indexCorpus
+from document import buildInvertedIndex
 
 corpus = indexCorpus("corpus")
-print(len(corpus))
-for doc in corpus:
-    print(doc.docno)
-    
+
+words = buildInvertedIndex(corpus)
+
+with open("output.txt", "w+") as file:
+    for word, doc in words.items():
+        file.write(f"{word} : {doc}\n")
+

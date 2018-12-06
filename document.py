@@ -47,3 +47,24 @@ class Document:
                 self.words[word] = 1
 
         return self.words
+
+
+def buildInvertedIndex(corpus):
+    words = {}
+    index = 0
+
+    for document in corpus:
+        wordsPerDocument = document.countWords()
+
+        for word in document.text.split(" "):
+            
+            if word in words:
+                words[word].append((index, wordsPerDocument[word]))
+
+            else:
+                words[word] = []
+                words[word].append((index, wordsPerDocument[word]))
+        
+        index += 1
+
+    return words
