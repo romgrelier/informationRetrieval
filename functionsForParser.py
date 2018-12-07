@@ -1,5 +1,6 @@
 import math;
 import numpy as np;
+import numbers;
 
 
 #TERM FREQUENCY:
@@ -39,7 +40,10 @@ def inverse_document_frequency(corpus, indexWords, query):
         return 0;
     '''
     #print("\ttaille document: "  +str(documents.__len__()) );
-    return math.log((corpus.__len__()/document_frequency(indexWords,query)), 10)
+    if document_frequency(indexWords,query) !=0:
+        return math.log((corpus.__len__()/document_frequency(indexWords,query)), 10)
+    else:
+        return 0;
 
 
 def tf_idf(corpus,indexWords, numDocument, query):
@@ -67,19 +71,22 @@ def print_documents_to_tf_idf_vector(documents):
 
 #VECTOR & NORMALISATION:
 
-def vector_tf_idf_one_doc(corpus,document):
-    vector = {}
-    for word in indexWords:
-        vector[word]=tf_idf(documents,document,word);
+def vector_tf_idf(corpus,index,document):
+    vector = []
+    for word in corpus[document].text.split():
+        #print("dans le tf:" + str(document) + str(tf_idf(corpus,index,document,word)));
+        vector.append(tf_idf(corpus,index,document,word));
     return vector;
+
 
 
 
 def l2_normalization_vector(document):
     vector_normalized =0;
     sum = 0;
-    for key,values in document.items():
-        sum = sum+values;
+    for values in document:
+        if isinstance(values, numbers.Number) :
+            sum = sum+values;
     vector_normalized = math.sqrt(sum);
     return vector_normalized
 
@@ -91,7 +98,6 @@ def cosine_similarity(arg_query, document,word):
     l2_norm_query = l2_normalization_vector(vector_tf_idf_one_doc(queries, arg_query));
     tf_idf_doc = tf_idf(docs, document,word)
     tf_idf_query = tf_idf(queries, document,word)
-
     return (np.dot(tf_idf_query ,tf_idf_doc) / ( l2_norm_query * l2_norm_doc ) ) ;
 
 

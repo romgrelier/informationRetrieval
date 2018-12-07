@@ -46,14 +46,13 @@ print("MERGE AND\n")
 and_document = merge_and(["rule", "spent"], index)
 
 print(and_document)
-print(corpus[5].listWords())
 
 print(index)
 print("\n");
 print("Ocean a 1 occurence dans 3 documents")
 print("years a 3 occurence dans 2 documents")
 print("\nTerm_freq by document ");
-print ("\tOcean: " + str(score_documents_term_frequency(index,7, "Ocean")));
+print ("\tOcean: " + str(score_documents_term_frequency(index,169, "Ocean")));
 print ("\tyears: " + str(score_documents_term_frequency(index,57, "years.")));
 #sdtf_ocean = score_documents_term_frequency(indexWords,7, "Ocean");
 #sdtf_year = score_documents_term_frequency(indexWords,57, "years.");
@@ -67,11 +66,15 @@ print ("\tOcean: " + str(inverse_document_frequency(corpus,index, "Ocean")));
 print ("\tyears: " + str(inverse_document_frequency(corpus, index, "years.")));
 
 print("\ntf_idf");
-print ("\tOcean: " + str(tf_idf(corpus,index,7, "Ocean")));
+print ("\tOcean: " + str(tf_idf(corpus,index,169, "Ocean")));
 print ("\tyears: " + str(tf_idf(corpus, index,57, "years.")));
 
 print("\nvector_tf_idf");
-#print ("\tOcean: " + str(vector_tf_idf_one_doc(corpus,indexWords,7, "Ocean")));
-#print ("\tyears: " + str(vector_tf_idf_one_doc(corpus, indexWords,57, "years.")));
+print ("\tDoc 169: " + str(vector_tf_idf(corpus, index, 169)));
+#print ("\tDoc X: " + str(vector_tf_idf(corpus, index, 169)));
 
-print(vector_tf_idf_one_doc(corpus, 7))
+print("\nNormalized_vector");
+vector_tf_ifd_doc_169 = vector_tf_idf(corpus, index, 169);
+print ("\tDoc 169: " + str(l2_normalization_vector(vector_tf_ifd_doc_169)));
+#print ("\tDoc X: " + str(vector_tf_idf(corpus, index, 169)));
+
