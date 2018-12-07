@@ -5,41 +5,69 @@ from functionsForParser import *
 
 corpus = indexCorpus("corpus")
 
-indexWords = buildInvertedIndex(corpus)
+index = buildInvertedIndex(corpus)
 
 with open("output.txt", "w+") as file:
-    for word, doc in indexWords.items():
+    for word, doc in index.items():
         file.write("%s : %s \n" % (word, doc))
 
 
+def merge_or(wordList, index):
+    commonDocument = set()
 
-#print (words)
-#Wefeel : [2, (2188, 1), (2848, 1)]
-#Wefeel : [Corpus, (Doc, nbOccurrence)]
-#'Ocean': [3, (7, 1), (11, 1), (49, 1)],
-#'years.': [2, (34, 1), (57, 2)]
+    for word in wordList:
 
-print(indexWords)
+        wordIndex = index[word][2:]
+        for doc, _ in wordIndex:
+            commonDocument.add(doc)
+
+    return commonDocument
+
+
+def merge_and(wordList, index):
+    common_document = merge_or(wordList, index)
+
+    for word in wordList:
+        doc_presence = set()
+
+        wordIndex = index[word][2:]
+        for doc, _ in wordIndex:
+            doc_presence.add(doc)
+
+        common_document = common_document.intersection(doc_presence)
+
+    return common_document
+
+
+print("MERGE OR\n")
+commonDocument = merge_or(["rule", "spent", "revel"], index)
+
+print("MERGE AND\n")
+and_document = merge_and(["rule", "spent"], index)
+
+print(and_document)
+
+print(index)
 print("\n");
 print("Ocean a 1 occurence dans 3 documents")
 print("years a 3 occurence dans 2 documents")
 print("\nTerm_freq by document ");
-print ("\tOcean: " + str(score_documents_term_frequency(indexWords,7, "Ocean")));
-print ("\tyears: " + str(score_documents_term_frequency(indexWords,57, "years.")));
+print ("\tOcean: " + str(score_documents_term_frequency(index,7, "Ocean")));
+print ("\tyears: " + str(score_documents_term_frequency(index,57, "years.")));
 #sdtf_ocean = score_documents_term_frequency(indexWords,7, "Ocean");
 #sdtf_year = score_documents_term_frequency(indexWords,57, "years.");
 
 print("\nDocument_frequency ");
-print ("\tOcean: " + str(document_frequency(indexWords, "Ocean")));
-print ("\tyears: " + str(document_frequency(indexWords, "years.")));
+print ("\tOcean: " + str(document_frequency(index, "Ocean")));
+print ("\tyears: " + str(document_frequency(index, "years.")));
 
 print("\nInverse document_frequency ");
-print ("\tOcean: " + str(inverse_document_frequency(corpus,indexWords, "Ocean")));
-print ("\tyears: " + str(inverse_document_frequency(corpus, indexWords, "years.")));
+print ("\tOcean: " + str(inverse_document_frequency(corpus,index, "Ocean")));
+print ("\tyears: " + str(inverse_document_frequency(corpus, index, "years.")));
 
 print("\ntf_idf");
-print ("\tOcean: " + str(tf_idf(corpus,indexWords,7, "Ocean")));
-print ("\tyears: " + str(tf_idf(corpus, indexWords,57, "years.")));
+print ("\tOcean: " + str(tf_idf(corpus,index,7, "Ocean")));
+print ("\tyears: " + str(tf_idf(corpus, index,57, "years.")));
 
 print("\nvector_tf_idf");
 #print ("\tOcean: " + str(vector_tf_idf_one_doc(corpus,indexWords,7, "Ocean")));

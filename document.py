@@ -1,5 +1,5 @@
 from Algorithms.stemmer_algo import PorterStemmer
-
+import re
 
 class Document:
     def __init__(self):
@@ -43,12 +43,14 @@ class Document:
         p = PorterStemmer()
 
         for word in self.text.split(" "):
+            # remove specials caracters
+            word = re.sub(r"[^a-zA-Z0-9]+", '', word)
+
+            # '' beginning
+            #if word[:2] == "``":
+            #    word = word[2:]
 
             word = p.stem(word, 0, len(word) - 1)
-            
-            # '' beginning
-            if word[:2] == "``":
-                word = word[2:]
 
             if word in self.words:
                 self.words[word] += 1
