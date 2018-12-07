@@ -1,6 +1,8 @@
 from fileLoader import indexCorpus
 from document import buildInvertedIndex
 
+from functionsForParser import *
+
 corpus = indexCorpus("corpus")
 
 index = buildInvertedIndex(corpus)
@@ -8,6 +10,7 @@ index = buildInvertedIndex(corpus)
 with open("output.txt", "w+") as file:
     for word, doc in index.items():
         file.write("%s : %s \n" % (word, doc))
+
 
 def merge_or(wordList, index):
     commonDocument = set()
@@ -23,7 +26,7 @@ def merge_or(wordList, index):
 
 def merge_and(wordList, index):
     common_document = merge_or(wordList, index)
-    
+
     for word in wordList:
         doc_presence = set()
 
@@ -32,7 +35,7 @@ def merge_and(wordList, index):
             doc_presence.add(doc)
 
         common_document = common_document.intersection(doc_presence)
- 
+
     return common_document
 
 
@@ -42,4 +45,34 @@ commonDocument = merge_or(["rule", "spent", "revel"], index)
 print("MERGE AND\n")
 and_document = merge_and(["rule", "spent"], index)
 
+
 print(and_document)
+print(corpus[5].listWords())
+
+print(index)
+print("\n");
+print("Ocean a 1 occurence dans 3 documents")
+print("years a 3 occurence dans 2 documents")
+print("\nTerm_freq by document ");
+print ("\tOcean: " + str(score_documents_term_frequency(index,7, "Ocean")));
+print ("\tyears: " + str(score_documents_term_frequency(index,57, "years.")));
+#sdtf_ocean = score_documents_term_frequency(indexWords,7, "Ocean");
+#sdtf_year = score_documents_term_frequency(indexWords,57, "years.");
+
+print("\nDocument_frequency ");
+print ("\tOcean: " + str(document_frequency(index, "Ocean")));
+print ("\tyears: " + str(document_frequency(index, "years.")));
+
+print("\nInverse document_frequency ");
+print ("\tOcean: " + str(inverse_document_frequency(corpus,index, "Ocean")));
+print ("\tyears: " + str(inverse_document_frequency(corpus, index, "years.")));
+
+print("\ntf_idf");
+print ("\tOcean: " + str(tf_idf(corpus,index,7, "Ocean")));
+print ("\tyears: " + str(tf_idf(corpus, index,57, "years.")));
+
+print("\nvector_tf_idf");
+#print ("\tOcean: " + str(vector_tf_idf_one_doc(corpus,indexWords,7, "Ocean")));
+#print ("\tyears: " + str(vector_tf_idf_one_doc(corpus, indexWords,57, "years.")));
+
+print(vector_tf_idf_one_doc(corpus, 7))

@@ -177,3 +177,16 @@ print(cosine_similarity(query2,doc2,"Alfred"));
 print("\nCOSINE SIMILARITY ALFRED DANS UN DOC QUI N'A PAS ALFRED: ")
 print(cosine_similarity(query2,doc1,"Alfred"));
 
+
+print("\nCOSINE SIMILARITY APPELLE QUERY1 DANS UN DOC 1: ")
+print(cosine_similarity(query1,doc1,"appelle"));
+
+print("\nCOSINE SIMILARITY APPELLE QUERY1 DANS UN DOC 2: ")
+print(cosine_similarity(query1,doc2,"appelle"));
+
+print("\nCOSINE SIMILARITY APPELLE QUERY2 DANS UN DOC 1: ")
+print(cosine_similarity(query2,doc1,"appelle"));
+
+print("\nCOSINE SIMILARITY APPELLE QUERY2 DANS UN DOC 2: ")
+print(cosine_similarity(query2,doc2,"appelle"));
+
