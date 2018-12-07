@@ -78,13 +78,72 @@ print ("\tDoc: "+ str(ocean_doc) + str(vector_tf_idf(corpus, index, ocean_doc)))
 print ("\tDoc: " + str(year_doc) + str(vector_tf_idf(corpus, index, year_doc)));
 
 print("\nNormalized_vector");
+
 vector_tf_ifd_doc1 = vector_tf_idf(corpus, index, ocean_doc);
 vector_tf_ifd_doc2 = vector_tf_idf(corpus, index, year_doc);
+
 print ("\tDoc: " + str(ocean_doc) + str(l2_normalization_vector(vector_tf_ifd_doc1)));
 print ("\tDoc: "+ str(year_doc) +  str(l2_normalization_vector(vector_tf_ifd_doc2)));
 
-print("\nCosine Similarity");
 
+
+
+
+# COSINE_SIMILARITY:
+def cosine_similarity(tf_idf_q,n_v_q, tf_idf_doc, n_v_doc ):
+    #l2_norm_doc = l2_normalization_vector(vector_tf_idf(corpus, index, documentID))
+    #tf_idf_doc = tf_idf(corpus,index,documentID, query)
+    return (np.dot(tf_idf_q, tf_idf_doc) / (n_v_q * n_v_doc));
+
+
+
+print("\nCosine Similarity");
 print ("\tDoc: "+ str(ocean_doc)  + str(l2_normalization_vector(vector_tf_ifd_doc1)));
 print ("\tDoc: "+ str(year_doc)  + str(l2_normalization_vector(vector_tf_ifd_doc2)));
 
+
+query = input("Entrez un mot")
+print(query);
+
+
+'''
+#IL NOUS FAUT : 
+- un vecteur normalisé de la question =0
+- tf_idf de la question =0
+
+Pour chaque document, on compare le cosinus avec : 
+- un vecteur normalisé de la longueur du document
+- tf_idf du doc
+
+
+'''
+
+# CHERCHER DANS TOUS LES DOCS
+def search_word_in_corpus(corpus, index, query):
+    tf_idf_query = tf_idf(corpus,index,ocean_doc, query)
+
+    liste_doc = []
+    for key,values in index.items():
+        if key==query:
+            temps = values.copy();
+            temps.pop(0);
+            for doc in temps:
+                liste_doc.append(doc[0])
+
+
+    vector_doc_norm ={}
+    #DOC = NUMERO DU DOCUMENT
+    for doc_number in liste_doc:
+        v_tf_idf = vector_tf_idf(corpus,index,doc_number)
+        n_v_tf_idf = l2_normalization_vector(v_tf_idf)
+        vector_doc_norm[doc_number]=n_v_tf_idf
+
+    print(vector_doc_norm)
+    #ICI NOUS AVONS UNE LISTE DE VECTEUR DES DOCUMENTS CONTENANT LES MOTES
+    for key, values in vector_doc_norm.items():
+        print("KEY: "+ str(key)+" | Similarity: "+ str(cosine_similarity(1,1, values,tf_idf(corpus,index,key,query))  ))
+
+    return "FIN"
+
+
+print(search_word_in_corpus(corpus, index, query))
