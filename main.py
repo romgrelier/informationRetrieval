@@ -40,7 +40,7 @@ def merge_and(wordList, index):
 
 
 print("MERGE OR\n")
-commonDocument = merge_or(["rule", "spent", "revel"], index)
+#commonDocument = merge_or(["rule", "spent", "revel"], index)
 
 print("MERGE AND\n")
 and_document = merge_and(["rule", "spent"], index)
@@ -59,23 +59,28 @@ print ("\tyears: " + str(score_documents_term_frequency(index,57, "years.")));
 #sdtf_year = score_documents_term_frequency(indexWords,57, "years.");
 
 print("\nDocument_frequency ");
-print ("\tOcean: " + str(document_frequency(index, "Ocean")));
-print ("\tyears: " + str(document_frequency(index, "years.")));
+print ("\tOcean: " + str(document_frequency(index, "ocean")));
+print ("\tyears: " + str(document_frequency(index, "years")));
 
 print("\nInverse document_frequency ");
 print ("\tOcean: " + str(inverse_document_frequency(corpus,index, "Ocean")));
 print ("\tyears: " + str(inverse_document_frequency(corpus, index, "years.")));
 
 print("\ntf_idf");
-print ("\tOcean: " + str(tf_idf(corpus,index,169, "Ocean")));
+print ("\tOcean: " + str(tf_idf(corpus,index,138, "Ocean")));
 print ("\tyears: " + str(tf_idf(corpus, index,57, "years.")));
 
 print("\nvector_tf_idf");
-print ("\tDoc 169: " + str(vector_tf_idf(corpus, index, 169)));
+print ("\tDoc 169: " + str(vector_tf_idf(corpus, index, 138)));
 #print ("\tDoc X: " + str(vector_tf_idf(corpus, index, 169)));
 
 print("\nNormalized_vector");
-vector_tf_ifd_doc_169 = vector_tf_idf(corpus, index, 169);
-print ("\tDoc 169: " + str(l2_normalization_vector(vector_tf_ifd_doc_169)));
+vector_tf_ifd_doc_138 = vector_tf_idf(corpus, index, 138);
+print ("\tDoc 138: " + str(l2_normalization_vector(vector_tf_ifd_doc_138)));
+#print ("\tDoc X: " + str(vector_tf_idf(corpus, index, 169)));
+
+print("\nCosine Similarity");
+
+print ("\tDoc 138: " + str(l2_normalization_vector(vector_tf_ifd_doc_138)));
 #print ("\tDoc X: " + str(vector_tf_idf(corpus, index, 169)));
 
