@@ -39,6 +39,7 @@ def loadFile(path):
                     # multiline, loop until markup TEXT
                     if line == "<TEXT>" or line[:len("TEXT") + 2] == '<' + "TEXT" + '>':
                         #print("text begin")
+                        line = file.readline().rstrip()
                         text = ""
                         while line != "</TEXT>":
                             #print(line)
