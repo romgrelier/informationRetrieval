@@ -54,15 +54,15 @@ class Document:
     def countWords(self):
         p = PorterStemmer()
 
-        for word in self.text.split(" "):
-            # remove specials caracters
-            word = re.sub(r"[^a-zA-Z0-9]+", '', word)
+        # remove specials caracters
+        text = re.sub(r"[{}()`\-.,;/'_0-9]+", '', self.text.lower()).split(' ')
+
+        for word in text:
+            word = p.stem(word, 0, len(word) - 1)
 
             # '' beginning
             #if word[:2] == "``":
             #    word = word[2:]
-
-            word = p.stem(word, 0, len(word) - 1)
 
             if word in self.words:
                 self.words[word] += 1

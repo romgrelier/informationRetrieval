@@ -45,6 +45,7 @@ commonDocument = merge_or(["rule", "spent", "revel"], index)
 print("MERGE AND\n")
 and_document = merge_and(["rule", "spent"], index)
 
+
 print(and_document)
 
 print(index)
