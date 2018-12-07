@@ -44,3 +44,4 @@ and_document = merge_and(["rule", "spent"], index)
 
 print(and_document)
 
+print(corpus[5].listWords())
