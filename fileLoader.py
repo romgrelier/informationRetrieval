@@ -62,7 +62,7 @@ def indexCorpus(folder):
     corpus = []
     
     for file in os.listdir(folder):
-        corpus += loadFile(f"{folder}/{file}")
+        corpus += loadFile("%s/%s" % (folder, file))
 
     return corpus
 

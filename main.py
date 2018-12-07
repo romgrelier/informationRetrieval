@@ -7,5 +7,5 @@ words = buildInvertedIndex(corpus)
 
 with open("output.txt", "w+") as file:
     for word, doc in words.items():
-        file.write(f"{word} : {doc}\n")
-
+        file.write("%s : %s \n" % (word, doc))
+        
