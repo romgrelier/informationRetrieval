@@ -44,17 +44,21 @@ queries.append(query2)
 #TERM FREQUENCY:
 
 def term_frequency(word):
-    if word <= 0:
-        return 0;
+
+    if type(word) == int:
+        if word <= 0:
+            return 0;
+        else:
+            return 1 + math.log(word,10);
     else:
-        return 1 + math.log(word,10);
+        return 0;
 
 def score_documents_term_frequency(documents,query):
     sum=0;
     for document in documents:
         for word in document:
             if word == query:
-                #print(str(query)+ " : "+str(term_frequency(document.get(query))));
+                print(str(query)+ " : "+str(term_frequency(document.get(query))));
                 sum+= term_frequency(document.get(query));
     return sum;
 
@@ -149,19 +153,27 @@ print(l2_normalization_vector(vector_tf_idf_one_doc(queries,query1)))
 
 
 #COSINE_SIMILARITY:
-#PAS FINI !!!!
-def cosine_similarity(arg_query, document ):
-    #return (np.dot(arg_query,document) /  ;
-    return 0;
 
-#tf_idf_doc1 =  tf_idf(docs,doc1,)
+def cosine_similarity(arg_query, document,word):
+    l2_norm_doc = l2_normalization_vector(vector_tf_idf_one_doc(docs, document));
+    l2_norm_query = l2_normalization_vector(vector_tf_idf_one_doc(queries, arg_query));
+    tf_idf_doc = tf_idf(docs, document,word)
+    tf_idf_query = tf_idf(queries, document,word)
 
+    return (np.dot(tf_idf_query ,tf_idf_doc) / ( l2_norm_query * l2_norm_doc ) ) ;
+
+
+'''
 l2_norm_doc1=l2_normalization_vector(vector_tf_idf_one_doc(docs,doc1));
 l2_norm_doc2=l2_normalization_vector(vector_tf_idf_one_doc(docs,doc2));
 
 l2_norm_query1=l2_normalization_vector(vector_tf_idf_one_doc(queries,query1));
 l2_norm_query2=l2_normalization_vector(vector_tf_idf_one_doc(queries,query2));
+'''
 
 # PAS FINI !!!!
-print("\nCOSINE SIMILARITY")
-print(cosine_similarity(l2_norm_query2,l2_norm_doc2));
+print("\nCOSINE SIMILARITY ALFRED DANS DOC ALFRED: ")
+print(cosine_similarity(query2,doc2,"Alfred"));
+print("\nCOSINE SIMILARITY ALFRED DANS UN DOC QUI N'A PAS ALFRED: ")
+print(cosine_similarity(query2,doc1,"Alfred"));
+
