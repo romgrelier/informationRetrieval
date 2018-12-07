@@ -37,7 +37,7 @@ class Document:
         elif markup == "UNK":
             self.unk = content
         else:
-            print(f"{markup} does not exist")
+            print("%s does not exist" % markup)
 
     def countWords(self):
         p = PorterStemmer()
