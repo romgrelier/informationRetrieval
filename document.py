@@ -1,3 +1,5 @@
+from Algorithms.stemmer_algo import PorterStemmer
+
 
 class Document:
     def __init__(self):
@@ -38,9 +40,16 @@ class Document:
             print(f"{markup} does not exist")
 
     def countWords(self):
+        p = PorterStemmer()
+
         for word in self.text.split(" "):
-            #word = word.lower()
-            #word = re.sub("[*/-<>|(){}]", '', word)
+
+            word = p.stem(word, 0, len(word) - 1)
+            
+            # '' beginning
+            if word[:2] == "``":
+                word = word[2:]
+
             if word in self.words:
                 self.words[word] += 1
             else:
@@ -50,6 +59,9 @@ class Document:
 
 
 def buildInvertedIndex(corpus):
+    """
+    { word : [count corpus, (document, count)]}
+    """
     words = {}
     index = 0
 
