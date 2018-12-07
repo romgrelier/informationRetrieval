@@ -48,13 +48,16 @@ and_document = merge_and(["rule", "spent"], index)
 
 print(and_document)
 
+ocean_doc = 40;
+year_doc = 9;
+
 print(index)
 print("\n");
 print("Ocean a 1 occurence dans 3 documents")
 print("years a 3 occurence dans 2 documents")
 print("\nTerm_freq by document ");
-print ("\tOcean: " + str(score_documents_term_frequency(index,169, "Ocean")));
-print ("\tyears: " + str(score_documents_term_frequency(index,57, "years.")));
+print ("\tOcean: " + str(score_documents_term_frequency(index,ocean_doc, "ocean")));
+print ("\tyears: " + str(score_documents_term_frequency(index,year_doc, "years")));
 #sdtf_ocean = score_documents_term_frequency(indexWords,7, "Ocean");
 #sdtf_year = score_documents_term_frequency(indexWords,57, "years.");
 
@@ -63,24 +66,25 @@ print ("\tOcean: " + str(document_frequency(index, "ocean")));
 print ("\tyears: " + str(document_frequency(index, "years")));
 
 print("\nInverse document_frequency ");
-print ("\tOcean: " + str(inverse_document_frequency(corpus,index, "Ocean")));
-print ("\tyears: " + str(inverse_document_frequency(corpus, index, "years.")));
+print ("\tOcean: " + str(inverse_document_frequency(corpus,index, "ocean")));
+print ("\tyears: " + str(inverse_document_frequency(corpus, index, "year")));
 
 print("\ntf_idf");
-print ("\tOcean: " + str(tf_idf(corpus,index,138, "Ocean")));
-print ("\tyears: " + str(tf_idf(corpus, index,57, "years.")));
+print ("\tOcean: " + str(tf_idf(corpus,index,ocean_doc, "ocean")));
+print ("\tyears: " + str(tf_idf(corpus, index,year_doc, "year")));
 
 print("\nvector_tf_idf");
-print ("\tDoc 169: " + str(vector_tf_idf(corpus, index, 138)));
-#print ("\tDoc X: " + str(vector_tf_idf(corpus, index, 169)));
+print ("\tDoc: "+ str(ocean_doc) + str(vector_tf_idf(corpus, index, ocean_doc)));
+print ("\tDoc: " + str(year_doc) + str(vector_tf_idf(corpus, index, year_doc)));
 
 print("\nNormalized_vector");
-vector_tf_ifd_doc_138 = vector_tf_idf(corpus, index, 138);
-print ("\tDoc 138: " + str(l2_normalization_vector(vector_tf_ifd_doc_138)));
-#print ("\tDoc X: " + str(vector_tf_idf(corpus, index, 169)));
+vector_tf_ifd_doc1 = vector_tf_idf(corpus, index, ocean_doc);
+vector_tf_ifd_doc2 = vector_tf_idf(corpus, index, year_doc);
+print ("\tDoc: " + str(ocean_doc) + str(l2_normalization_vector(vector_tf_ifd_doc1)));
+print ("\tDoc: "+ str(year_doc) +  str(l2_normalization_vector(vector_tf_ifd_doc2)));
 
 print("\nCosine Similarity");
 
-print ("\tDoc 138: " + str(l2_normalization_vector(vector_tf_ifd_doc_138)));
-#print ("\tDoc X: " + str(vector_tf_idf(corpus, index, 169)));
+print ("\tDoc: "+ str(ocean_doc)  + str(l2_normalization_vector(vector_tf_ifd_doc1)));
+print ("\tDoc: "+ str(year_doc)  + str(l2_normalization_vector(vector_tf_ifd_doc2)));
 
