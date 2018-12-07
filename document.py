@@ -38,6 +38,18 @@ class Document:
             self.unk = content
         else:
             print("%s does not exist" % markup)
+    
+    def listWords(self):
+        words = set()
+
+        p = PorterStemmer()
+
+        for word in self.text.split(" "):
+            word = re.sub(r"[^a-zA-Z0-9]+", '', word)
+            word = p.stem(word, 0, len(word) - 1)           
+            words.add(word)
+
+        return words
 
     def countWords(self):
         p = PorterStemmer()
