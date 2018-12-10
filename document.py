@@ -57,7 +57,7 @@ class Document:
         text = re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', self.text.lower()).split(' ')
 
         for word in text:
-            #word = p.stem(word, 0, len(word) - 1)
+            word = p.stem(word, 0, len(word) - 1)
 
             # '' beginning
             #if word[:2] == "``":

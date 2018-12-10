@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template,request
 
-from main import indexCorpus, buildInvertedIndex, make_query
+from util import indexCorpus, buildInvertedIndex, make_query
 
 from document import Document
 
