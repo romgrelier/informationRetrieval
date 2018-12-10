@@ -92,4 +92,12 @@ def buildInvertedIndex(corpus):
         
         index += 1
 
+    # remove stop words
+    with open("stopwords.txt", "r") as stopwords:
+        word = stopwords.readline().rstrip()
+        while word:
+            if word in words:
+                del words[word]
+            word = stopwords.readline().rstrip()
+
     return words
