@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Information Retrieval</title>
+    <!--<link rel="stylesheet" href="style.css">-->
+  </head>
+  <body>
+    <form action="/" method="GET">
+        <input type="text" name="query">
+        <input type="submit" value="Submit">
+    </form>
+    <p>{{ count }} results found </p>
+
+    <ul>
+    {% for doc in documents %}
+    <!--<li>{{ doc.docno }} <br/> {{ doc.text }}</li>-->
+    <li>{{ doc.docno }} <br/>
+      {% for word in doc.text %}
+
+        <!--{% for w in words %}-->
+
+          {% if word.lower() is in words %}
+            <span style="background-color:yellow">{{ word }}</span>
+          {% else %}
+            {{ word }}
+          {% endif %}
+
+      <!--{% endfor %}-->
+
+      {% endfor %}
+    </li>
+    <br/>
+    {% endfor %}
+    </ul>
+
+  </body>
+</html>
