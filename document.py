@@ -53,10 +53,17 @@ class Document:
     def countWords(self):
         p = PorterStemmer()
 
+        text = self.text.lower()
+        text = self.text.split(' ')
         # remove specials caracters
-        text = re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', self.text.lower()).split(' ')
+        #text = re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', text).split(' ')
 
+        text2 = []
         for word in text:
+            text2 += re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', word).split(' ')
+
+        for word in text2:
+            #text.append(re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', word))
             word = p.stem(word, 0, len(word) - 1)
 
             # '' beginning

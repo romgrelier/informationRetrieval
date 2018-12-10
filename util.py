@@ -34,4 +34,4 @@ def make_query(query, index):
     for word in query:
         words.append(p.stem(word, 0, len(word) - 1))
 
-    return merge_and(words, index)
+    return merge_or(words, index)
