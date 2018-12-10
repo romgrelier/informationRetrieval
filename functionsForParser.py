@@ -81,24 +81,14 @@ def vector_tf_idf(corpus,index,document):
 
 
 
-def l2_normalization_vector(document):
+def l2_normalization_vector(vector):
     vector_normalized =0;
     sum = 0;
-    for values in document:
+    for values in vector:
         if isinstance(values, numbers.Number) :
             sum = sum+values;
     vector_normalized = math.sqrt(sum);
     return vector_normalized
-
-
-#COSINE_SIMILARITY:
-
-def cosine_similarity(arg_query, document,word):
-    l2_norm_doc = l2_normalization_vector(vector_tf_idf_one_doc(docs, document));
-    l2_norm_query = l2_normalization_vector(vector_tf_idf_one_doc(queries, arg_query));
-    tf_idf_doc = tf_idf(docs, document,word)
-    tf_idf_query = tf_idf(queries, document,word)
-    return (np.dot(tf_idf_query ,tf_idf_doc) / ( l2_norm_query * l2_norm_doc ) ) ;
 
 
 
