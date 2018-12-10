@@ -29,7 +29,7 @@ class Document:
         elif markup == "DATELINE":
             self.dateline = content
         elif markup == "TEXT":
-            self.text = content
+            self.text += content
         elif markup == "NOTE":
             self.note = content
         elif markup == "BYLINE":
@@ -44,7 +44,7 @@ class Document:
 
         p = PorterStemmer()
 
-        for word in re.sub(r"[{}()`\-.,;/'_0-9]+", '', self.text.lower()).split(' '):
+        for word in re.sub("[{}()`'\-.,;/'_0-9 \\n]+", '', self.text.lower()).split(' '):
             word = p.stem(word, 0, len(word) - 1)           
             words.add(word)
 
@@ -54,10 +54,10 @@ class Document:
         p = PorterStemmer()
 
         # remove specials caracters
-        text = re.sub(r"[{}()`\-.,;/'_0-9]+", '', self.text.lower()).split(' ')
+        text = re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', self.text.lower()).split(' ')
 
         for word in text:
-            word = p.stem(word, 0, len(word) - 1)
+            #word = p.stem(word, 0, len(word) - 1)
 
             # '' beginning
             #if word[:2] == "``":
