@@ -44,7 +44,7 @@ class Document:
 
         p = PorterStemmer()
 
-        for word in re.sub("[{}()`'\-.,;/'_0-9 \\n]+", '', self.text.lower()).split(' '):
+        for word in re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', self.text.lower()).split(' '):
             word = p.stem(word, 0, len(word) - 1)           
             words.add(word)
 
