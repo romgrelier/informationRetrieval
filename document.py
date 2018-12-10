@@ -60,7 +60,7 @@ class Document:
 
         text2 = []
         for word in text:
-            text2 += re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', word).split(' ')
+            text2 += re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', word.lower()).split(' ')
 
         for word in text2:
             #text.append(re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', word))
