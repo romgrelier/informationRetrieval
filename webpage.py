@@ -28,7 +28,7 @@ def search(methods=['GET']):
         d.text = corpus[indexD].text.split(' ')
         documents_modified.append(d)
     
-    print(documents_modified[1].text)
+    #print(documents_modified[1].text)
 
     return render_template('index.html', documents=documents_modified, count=len(documents), words=query.split(' '))
 

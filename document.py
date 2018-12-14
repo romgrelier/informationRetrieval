@@ -29,7 +29,7 @@ class Document:
         elif markup == "DATELINE":
             self.dateline = content
         elif markup == "TEXT":
-            self.text += content
+            self.text += ' ' + content
         elif markup == "NOTE":
             self.note = content
         elif markup == "BYLINE":
@@ -38,13 +38,13 @@ class Document:
             self.unk = content
         else:
             print("%s does not exist" % markup)
-    
+
     def listWords(self):
         words = set()
 
         p = PorterStemmer()
 
-        for word in re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', self.text.lower()).split(' '):
+        for word in re.sub('[^ A-Za-z]+', '', self.text.lower()).split(' '):
             word = p.stem(word, 0, len(word) - 1)           
             words.add(word)
 
@@ -53,22 +53,10 @@ class Document:
     def countWords(self):
         p = PorterStemmer()
 
-        text = self.text.lower()
-        text = self.text.split(' ')
-        # remove specials caracters
-        #text = re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', text).split(' ')
+        text = re.sub('[^ A-Za-z]+', '', self.text.lower()).split(' ')
 
-        text2 = []
         for word in text:
-            text2 += re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', word.lower()).split(' ')
-
-        for word in text2:
-            #text.append(re.sub("[{}()`'\-.,;/'_0-9 \\n]+", ' ', word))
             word = p.stem(word, 0, len(word) - 1)
-
-            # '' beginning
-            #if word[:2] == "``":
-            #    word = word[2:]
 
             if word in self.words:
                 self.words[word] += 1
@@ -80,7 +68,7 @@ class Document:
 
 def buildInvertedIndex(corpus):
     """
-    { word : [count corpus, (document, count)]}
+    { word : [ count corpus, ( document, count ) ] }
     """
     words = {}
     index = 0
@@ -106,5 +94,8 @@ def buildInvertedIndex(corpus):
             if word in words:
                 del words[word]
             word = stopwords.readline().rstrip()
+
+    if '' in words:
+        del words['']
 
     return words
