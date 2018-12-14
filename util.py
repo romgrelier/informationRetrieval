@@ -9,7 +9,6 @@ def get_document(word, index):
     if word in index:
         for doc, _ in index[word][1:]:
             documents.add(doc)
-    print(documents)
 
     return documents
 
@@ -40,7 +39,5 @@ def make_query(query, index):
 
     for word in query:
         words.append(p.stem(word, 0, len(word) - 1))
-
-    print(words)
 
     return merge_and(words, index)
