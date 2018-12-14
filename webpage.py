@@ -22,10 +22,6 @@ else:
     with open('data.json', 'w') as outfile:
         json.dump(index, outfile)
 
-with open("output.txt", "w+") as file:
-    for word, doc in index.items():
-        file.write("%s : %s \n" % (word, doc))
-
 @app.route('/')
 def search(methods=['GET']):
     query = request.args.get('query', '')
