@@ -16,7 +16,7 @@ with open("output.txt", "w+") as file:
         file.write("%s : %s \n" % (word, doc))
 
 @app.route('/')
-def search(methods=['GET']):    
+def search(methods=['GET']):
     query = request.args.get('query', '')
 
     documents = make_query(query, index)
@@ -27,6 +27,8 @@ def search(methods=['GET']):
         d.docno = corpus[indexD].docno
         d.text = corpus[indexD].text.split(' ')
         documents_modified.append(d)
+    
+    print(documents_modified[1].text)
 
     return render_template('index.html', documents=documents_modified, count=len(documents), words=query.split(' '))
 

@@ -27,7 +27,9 @@ def merge_and(wordList, index):
 
 
 def make_query(query, index):
-    query = re.sub("[{}()`\-.,;/'_0-9 \\n]+", '', query.lower()).split(' ')
+    query = query.lower()
+    query = query.split(' ')
+
     p = PorterStemmer()
     words = []
 
