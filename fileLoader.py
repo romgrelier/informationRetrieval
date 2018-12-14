@@ -35,7 +35,6 @@ def loadFile(path):
                             line = file.readline().rstrip()
                             document.setData(markup, text)
 
-
                     # multiline, loop until markup TEXT
                     if line == "<TEXT>" or line[:len("TEXT") + 2] == '<' + "TEXT" + '>':
                         #print("text begin")

@@ -3,25 +3,30 @@ from document import buildInvertedIndex
 import re
 from Algorithms.stemmer_algo import PorterStemmer
 
+def get_document(word, index):
+    documents = set()
+
+    if word in index:
+        for doc, _ in index[word][1:]:
+            documents.add(doc)
+    print(documents)
+
+    return documents
+
 def merge_or(wordList, index):
     commonDocument = set()
 
     for word in wordList:
-        if word in index:
-            wordIndex = index[word][1:]
-            for doc, _ in wordIndex:
-                commonDocument.add(doc)
+        commonDocument |= get_document(word, index)
 
     return commonDocument
 
 
 def merge_and(wordList, index):
-    common_document = merge_or(wordList, index)
+    common_document = get_document(wordList[0], index)
 
-    for word in wordList:
-        doc_presence = merge_or(word, index)
-
-        common_document = common_document.intersection(doc_presence)
+    for word in wordList[1:]:
+        common_document &= get_document(word, index)
 
     return common_document
 
@@ -36,4 +41,6 @@ def make_query(query, index):
     for word in query:
         words.append(p.stem(word, 0, len(word) - 1))
 
-    return merge_or(words, index)
+    print(words)
+
+    return merge_and(words, index)
