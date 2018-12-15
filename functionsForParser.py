@@ -100,17 +100,31 @@ def tf_idf(corpus,indexWords, numDocument, query):
 def tf_idf2(corpus, index,nodoc, query):
     return term_frequency2(index,nodoc, query) * inverse_document_frequency(corpus, index, query)
 
+def tf_idf_opti(corpus,indexWords, numDocument, query):
+    for key,values in indexWords.items():
+        if key == query:
+            temps = values.copy()
+            doc_freq = temps[0]
+            #print("Query: ", str(query), " | Key: " , str(key), " | Value: ", str(values),"| Doc freq: " , str(doc_freq))
+            temps.pop(0);
+            for docs in temps:
+                if docs[0]==numDocument:
+                    #print ("\tTF: " +str(term_frequency(docs[1])))
+
+                    return term_frequency(docs[1]) *  math.log(   (corpus.__len__() / doc_freq)   , 10)
+    return 0
+
 
 
 
 def print_documents_to_tf_idf_vector(documents):
-    compteur =0;
+    compteur =0
     for document in documents:
-        print("DOCUMENT: "+ str(compteur));
+        print("DOCUMENT: "+ str(compteur))
         for query in document:
-            print( "\t" +query + " | tf_idf: "+  str( tf_idf(documents,document,query) ));
-        compteur=compteur+1;
-    return  True;
+            print( "\t" +query + " | tf_idf: "+  str( tf_idf(documents,document,query) ))
+        compteur=compteur+1
+    return  True
 
 
 #VECTOR & NORMALISATION:
@@ -118,9 +132,23 @@ def print_documents_to_tf_idf_vector(documents):
 def vector_tf_idf(corpus,index,document):
     vector = []
     for word in corpus[document].text.split():
-        #print("dans le tf:" + str(document) + str(tf_idf(corpus,index,document,word)));
-        vector.append(tf_idf(corpus,index,document,word));
-    return vector;
+        #print("dans le tf:" + str(document) + str(tf_idf(corpus,index,document,word)))
+        vector.append(tf_idf(corpus,index,document,word))
+    return vector
+
+
+def vector_tf_idf_opti(corpus,index,document):
+    vector = []
+    for word in corpus[document].text.split():
+        liste_docs = index.get(word)
+        if liste_docs != None:
+            temps = liste_docs.copy()
+            doc_freq = temps[0]
+            temps.pop(0)
+            for docs in temps:
+                if docs[0] == document:
+                    vector.append( term_frequency(docs[1]) *  math.log(   (corpus.__len__() / doc_freq)   , 10))
+    return vector
 
 
 

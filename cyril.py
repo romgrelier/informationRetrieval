@@ -145,16 +145,18 @@ def search_word_in_corpus(corpus, index, query):
         for key, values in inv_index_query.items():
             print("word: ", key)
 
-            v_query_tf_idf = vector_tf_idf(corpus, index, 0)
-            n_v_query_tf_idf = l2_normalization_vector(v_query_tf_idf)
+            #v_query_tf_idf = vector_tf_idf(corpus, index, 0)
+            v_query_tf_idf_opti = vector_tf_idf_opti(corpus, index, 0)
+            n_v_query_tf_idf = l2_normalization_vector(v_query_tf_idf_opti)
             vector_query_norm[0] = n_v_query_tf_idf
 
-
+            '''
             print(document_frequency(index, key))
             print(inverse_document_frequency(corpus,index, key))
             print(v_query_tf_idf)
+            print(v_query_tf_idf_opti)
             print(vector_query_norm)
-
+            '''
 
 
 
@@ -163,7 +165,7 @@ def search_word_in_corpus(corpus, index, query):
         # ICI ON CALCULE LE VECTEUR DES DOCUMENTS
         print("avant for doc_number. Taille lsite_doc: ", str(liste_doc.__len__()))
         for doc_number in liste_doc:
-            v_tf_idf = vector_tf_idf(corpus,index,doc_number)
+            v_tf_idf = vector_tf_idf_opti(corpus,index,doc_number)
             n_v_tf_idf = l2_normalization_vector(v_tf_idf)
             vector_doc_norm[doc_number]=n_v_tf_idf
 
