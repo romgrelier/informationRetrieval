@@ -30,7 +30,7 @@ def merge_and(wordList, index):
     return common_document
 
 
-def make_query(query, index):
+def make_query_and(query, index):
     query = query.lower()
     query = query.split(' ')
 
@@ -41,3 +41,15 @@ def make_query(query, index):
         words.append(p.stem(word, 0, len(word) - 1))
 
     return merge_and(words, index)
+
+def make_query_or(query, index):
+    query = query.lower()
+    query = query.split(' ')
+
+    p = PorterStemmer()
+    words = []
+
+    for word in query:
+        words.append(p.stem(word, 0, len(word) - 1))
+
+    return merge_or(words, index)
