@@ -6,6 +6,10 @@ from util import indexCorpus, buildInvertedIndex, make_query
 
 from document import Document
 
+from cyril import *
+
+import operator
+
 import json, os
 
 app = Flask(__name__)
@@ -26,13 +30,24 @@ else:
 def search(methods=['GET']):
     query = request.args.get('query', '')
 
-    documents = make_query(query, index)
+    #print(search_word_in_corpus(corpus, index, query))
+
+
+
+    documents = search_word_in_corpus(corpus, index, query)
+
+
+    #documents = make_query(query, index)
+
+    documents_sorted = sorted(documents.items(), key=operator.itemgetter(1), reverse=True)
+    print (documents_sorted)
 
     documents_modified = []
-    for indexD in documents:
+    for indexD in documents_sorted:
+        print(indexD)
         d = Document()
-        d.docno = corpus[indexD].docno
-        d.text = corpus[indexD].text.split(' ')
+        d.docno = corpus[indexD[0]].docno
+        d.text = corpus[indexD[0]].text.split(' ')
         documents_modified.append(d)
     
     #print(documents_modified[1].text)

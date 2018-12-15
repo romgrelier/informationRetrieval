@@ -65,6 +65,12 @@ class Document:
 
         return self.words
 
+    def __str__(self):
+        return str(self.docno)
+
+    def __str__(self):
+        return str(self.docno)
+
 
 def buildInvertedIndex(corpus):
     """

@@ -5,6 +5,10 @@ import numbers;
 
 #TERM FREQUENCY:
 
+
+
+
+
 def term_frequency(word):
     if type(word) == int:
         if word <= 0:
@@ -14,7 +18,28 @@ def term_frequency(word):
     else:
         return 0;
 
-def score_documents_term_frequency(documents,document,query):
+
+
+
+def term_frequency2(index,nodoc, query):
+    val = 0
+    for key, values in index.items():
+        if key == query:
+            temp = values.copy()
+            temp.pop(0)
+            for doc in temp:
+                if doc[0]==nodoc:
+                    val =doc[1]
+    if val == 0:
+        return 0
+    else:
+        return 1 + math.log(val,10)
+
+
+
+
+
+def score_documents_term_frequency_old(documents,document,query):
     sum=0;
     for key,values in documents.items():
         if key == query:
@@ -27,9 +52,22 @@ def score_documents_term_frequency(documents,document,query):
     return sum;
 
 
+def score_documents_term_frequency(index,document,query):
+    sum=0;
+    for key,values in index.items():
+        if key == query:
+            temps = values.copy();
+            temps.pop(0);
+            for docs in temps:
+                if docs[0]==document:
+                    #print(str(query)+ " : "+str(term_frequency(docs[1])));
+                    sum+= term_frequency(docs[1]);
+    return sum;
+
+
 #DOCUMENT FREQUENCY:
-def document_frequency(documents, query):
-    for key, values in documents.items():
+def document_frequency(index, query):
+    for key, values in index.items():
         if key == query:
             return values[0];
     return 0;
@@ -41,6 +79,7 @@ def inverse_document_frequency(corpus, indexWords, query):
     '''
     #print("\ttaille document: "  +str(documents.__len__()) );
     if document_frequency(indexWords,query) !=0:
+
         return math.log((corpus.__len__()/document_frequency(indexWords,query)), 10)
     else:
         return 0;
@@ -53,8 +92,13 @@ def tf_idf(corpus,indexWords, numDocument, query):
             temps.pop(0);
             for docs in temps:
                 if docs[0]==numDocument:
-                    return term_frequency(docs[1]) * inverse_document_frequency(corpus, indexWords, query);
+                    #print ("\tTF: " +str(term_frequency(docs[1])))
+                    return term_frequency(docs[1]) * inverse_document_frequency(corpus, indexWords, query)
+    return 0
 
+
+def tf_idf2(corpus, index,nodoc, query):
+    return term_frequency2(index,nodoc, query) * inverse_document_frequency(corpus, index, query)
 
 
 
