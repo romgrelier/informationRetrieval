@@ -109,12 +109,16 @@ def search_word_in_corpus(corpus, index, query):
 
     if len(query.split(" "))<=1:
         print("un seul mot")
+        liste_doc_one_word = index.get(query)
+        #print(liste_doc_one_word)
+        if liste_doc_one_word != None:
+            temps = liste_doc_one_word.copy()
+            temps.pop(0)
+            for key, values in temps:
+                document_finaux[key]= values
         return  document_finaux
 
     else:
-
-
-
 
         liste_doc = make_query(query, index)
         print(liste_doc)
