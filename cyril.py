@@ -104,11 +104,7 @@ def search_word_in_corpus(corpus, index, query):
 
     document_finaux  = {}
 
-    word_list= []
-    for word in query.split():
-        word_list.append(word)
 
-    print(word_list)
 
 
     if len(query.split(" "))<=1:
@@ -116,7 +112,11 @@ def search_word_in_corpus(corpus, index, query):
         return  document_finaux
 
     else:
-        liste_doc = merge_and(word_list, index)
+
+
+
+
+        liste_doc = make_query(query, index)
         print(liste_doc)
         document_finaux.clear()
 
@@ -127,6 +127,15 @@ def search_word_in_corpus(corpus, index, query):
         corpus_query = [query_as_doc]
         inv_index_query = buildInvertedIndex(corpus_query)
         print (inv_index_query)
+
+
+
+        word_list = []
+        query = query.lower()
+        query = query.split(' ')
+        p = PorterStemmer()
+        for word in query:
+            word_list.append(p.stem(word, 0, len(word) - 1))
 
 
         vector_query_norm = {}
@@ -160,7 +169,6 @@ def search_word_in_corpus(corpus, index, query):
 
             print(vector_doc_norm)
 
-        print(corpus)
 
         '''
         #print(vector_doc_norm)
