@@ -6,7 +6,7 @@ from util import indexCorpus, buildInvertedIndex, make_query
 
 from document import Document
 
-from cyril import *
+from functionsForParser import *
 
 import operator
 
