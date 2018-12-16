@@ -74,8 +74,9 @@ Un exemple pourrait être : vecteur = [1.3,0,0.1]
 \begin{center}
 \includegraphics[scale=0.45]{vector_space}
 \end{center}
-\subsection{Pertinence des documents par similarité de cosinus}
-La comparaison par similarité de cosinus est la dernière étape. Elle permet de comparer l'angle entre deux vecteurs et ainsi en donner la similarité. 
+\pagebreak
+\subsection{Pertinence des documents par similarité de cosinus (Du + pertinent au - pertient)}
+La comparaison par similarité de cosinus est la dernière étape. Elle permet de comparer l'angle entre deux vecteurs représentant des document et ainsi en donner la similarité. Dans notre application, les document ayant la similarité la plus élevée sont retournés en premier. On utilise la méthode des K component afin d'additionner les similarités lorsque plusieurs termes sont recherchés. 
 
 \begin{center}
 \includegraphics[scale=0.9]{cosinus}
@@ -85,6 +86,7 @@ La comparaison par similarité de cosinus est la dernière étape. Elle permet d
 Afin de traiter la pertinence des documents nous utilisons une méthode consistant à comparer la similarité des cosinus entre deux documents. 
 La requête doit donc être transformée en document afin de pouvoir la comparer par la suite avec le corpus. 
 Pour ce, nous créons un nouveau document ayant pour texte la requête. Nous le passons ensuite dans un algorithmes de racinisation. 
+Nous calculons ensuite son tf*idf puis nous le vectorisons. Nous 
 
 \pagebreak
 \section{Interface graphique}
