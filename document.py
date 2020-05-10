@@ -1,6 +1,7 @@
 from Algorithms.stemmer_algo import PorterStemmer
 import re
 
+
 class Document:
     def __init__(self):
         self.docno = ""
@@ -45,7 +46,7 @@ class Document:
         p = PorterStemmer()
 
         for word in re.sub('[^ A-Za-z]+', '', self.text.lower()).split(' '):
-            word = p.stem(word, 0, len(word) - 1)           
+            word = p.stem(word, 0, len(word) - 1)
             words.add(word)
 
         return words
@@ -68,9 +69,6 @@ class Document:
     def __str__(self):
         return str(self.docno)
 
-    def __str__(self):
-        return str(self.docno)
-
 
 def buildInvertedIndex(corpus):
     """
@@ -82,7 +80,7 @@ def buildInvertedIndex(corpus):
     for document in corpus:
 
         for word, count in document.countWords().items():
-            
+
             if word in words:
                 words[word][0] += 1
                 words[word].append((index, count))
@@ -90,7 +88,7 @@ def buildInvertedIndex(corpus):
             else:
                 words[word] = [1]
                 words[word].append((index, count))
-        
+
         index += 1
 
     # remove stop words

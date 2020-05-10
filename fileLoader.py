@@ -3,7 +3,17 @@ from document import Document
 
 
 def loadFile(path):
-    markups = ["DOCNO", "FILEID", "FIRST", "BYLINE", "SECOND", "HEAD", "DATELINE", "NOTE", "UNK"]
+    markups = [
+        "DOCNO",
+        "FILEID",
+        "FIRST",
+        "BYLINE",
+        "SECOND",
+        "HEAD",
+        "DATELINE",
+        "NOTE",
+        "UNK"
+    ]
     documents = []
 
     with open(path) as file:
@@ -16,14 +26,15 @@ def loadFile(path):
                 document = Document()
                 line = file.readline().rstrip()
                 #print("DOC begin")
-                while line != "</DOC>": # until the end of the doc
+                while line != "</DOC>":  # until the end of the doc
 
-                    for markup in markups: # scan which markup
+                    for markup in markups:  # scan which markup
 
                         # single line
                         if line[:len(markup) + 2] == '<' + markup + '>' and line[len(line) - len(markup) - 3:] == "</" + markup + '>':
                             #print(f"\t{markup} added")
-                            document.setData(markup, line[len(markup) + 2:len(line) - len(markup) - 3])
+                            document.setData(
+                                markup, line[len(markup) + 2:len(line) - len(markup) - 3])
                             line = file.readline().rstrip()
                         # multiline
                         elif line[:len(markup) + 2] == '<' + markup + '>':
@@ -31,7 +42,8 @@ def loadFile(path):
                             while line[len(line) - len(markup) - 3:] != "</" + markup + '>':
                                 text += line
                                 line = file.readline().rstrip()
-                            text += line[len(markup) + 2:len(line) - len(markup) - 3]
+                            text += line[len(markup) +
+                                         2:len(line) - len(markup) - 3]
                             line = file.readline().rstrip()
                             document.setData(markup, text)
 
@@ -41,28 +53,27 @@ def loadFile(path):
                         line = file.readline().rstrip()
                         text = ""
                         while line != "</TEXT>":
-                            #print(line)
+                            # print(line)
                             text += line
                             line = file.readline().rstrip()
                         line = file.readline().rstrip()
                         document.setData("TEXT", text)
 
-                    #print(line)
+                    # print(line)
 
                 documents.append(document)
                 #print("document added")
 
-            else: # continue until a doc markup
+            else:  # continue until a doc markup
                 line = file.readline().rstrip()
-            
+
     return documents
 
 
 def indexCorpus(folder):
     corpus = []
-    
+
     for file in os.listdir(folder):
         corpus += loadFile("%s/%s" % (folder, file))
 
     return corpus
-
